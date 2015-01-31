@@ -71,7 +71,7 @@ var layers = $('.parallax-layer').each(function() {
 });
 
 $(document)
-    .on('scroll', function(e) {
+    .on('scroll', function() {
         // the scroll offset, capped to 0 for browsers
         // that allow over-scrolling
         var scroll_offset = Math.max(0, $(document).scrollTop());
@@ -190,7 +190,7 @@ $(document)
         });
 
         $(document)
-            .on('scroll', function(e) {
+            .on('scroll', function() {
                 // the current vertical scroll offset,
                 // capped to 0 for browsers that allow over-scrolling
                 var scroll_offset = Math.max(0, $(document).scrollTop());
