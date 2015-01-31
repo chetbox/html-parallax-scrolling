@@ -7,7 +7,6 @@
         <link href="http://fonts.googleapis.com/css?family=Oxygen%20Mono" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
         
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css"/>
     </head>
     <body>
@@ -87,7 +86,7 @@ $(document)
             <p>That's it! Now when you scroll up and down the page you should see the clouds slowly follow you.</p>
             <div id="share">
                 <a href="https://twitter.com/share" class="twitter-share-button" data-via="chetbox" data-size="large">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                <a class="github-button" href="https://github.com/chetbox" data-style="mega" data-count-href="/chetbox/followers" data-count-api="/users/chetbox#followers">Follow @chetbox</a>
             </div>
         </div>
     </body>
@@ -150,6 +149,7 @@ $(document)
 
         #share {
             text-align: center;
+            margin-top: 2em;
         }
 
         p {
@@ -203,4 +203,14 @@ $(document)
                 });
             });
     </script>
+
+    <!-- Prism syntax hightlighting-->
+    <script aysync defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
+
+    <!-- Twitter share button -->
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+    <!-- GitHub follow button -->
+    <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+
 </html>
