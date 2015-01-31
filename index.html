@@ -85,7 +85,10 @@ $(document)
     });
             </code></pre>
             <p>That's it! Now when you scroll up and down the page you should see the clouds slowly follow you.</p>
-            <p>If you want a horizontal parallax effect you can simply swap <code>top</code> with <code>left</code>.</p>
+            <div id="share">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="chetbox" data-size="large">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
         </div>
     </body>
     <style type="text/css">
@@ -143,6 +146,10 @@ $(document)
             margin: 2em auto;
             font-family: 'Oxygen', sans-serif;
             color: #fff;
+        }
+
+        #share {
+            text-align: center;
         }
 
         p {
