@@ -11,76 +11,83 @@
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css"/>
     </head>
     <body>
-        <div id="clouds1" class="parallax-layer"></div>
-        <div id="clouds2" class="parallax-layer"></div>
-        <img id="balloon" class="parallax-layer" src="images/balloon.png"/>
-        <h1>Parallax</h1>
+        <div id="clouds1" class="parallax-layer" data-parallax-displacement="0.25"></div>
+        <div id="clouds2" class="parallax-layer" data-parallax-displacement="0.5"></div>
+        <h1>
+            <span class="parallax-layer" data-parallax-displacement="0.1">Parallax</span>
+            <br />
+            <img id="balloon" src="images/balloon.png"
+                class="parallax-layer" data-parallax-displacement="0.75"/>
+        </h1>
         <div id="content">
             <p>I was asked recently how to achieve a parallax scrolling effect on web pages. With some simple Javascript and CSS you can achieve an effect like this that looks great. Scroll up and down to see it in action.</p>
             <p>Firstly, create some layers for your parallax effect and give them a <code>parallax-layer</code> class. This example has two different images clouds and a hot air ballon at the top of the page.</p>
+            <p>We set <code>data-parallax-displacement</code> on each parallax layer which specifies how much element moves relative to amount the user scrolls.</p>
             <pre><code class="language-markup">
-&lt;div id="clouds1" class="parallax-layer"&gt;&lt;/div&gt;
-&lt;div id="clouds2" class="parallax-layer"&gt;&lt;/div&gt;
-&lt;img id="balloon" class="parallax-layer" src="images/balloon.png"/&gt;
+&lt;div id="clouds1" class="parallax-layer" data-parallax-displacement="0.25"&gt;&lt;/div&gt;
+&lt;div id="clouds2" class="parallax-layer" data-parallax-displacement="0.5"&gt;&lt;/div&gt;
+&lt;h1&gt;
+    &lt;span class="parallax-layer" data-parallax-displacement="0.1"&gt;Parallax&lt;/span&gt;
+    &lt;br /&gt;
+    &lt;img id="balloon" src="images/balloon.png"
+        class="parallax-layer" data-parallax-displacement="0.75"/&gt;
+&lt;/h1&gt;
             </code></pre>
-            <p>You can style your layers however you like, though you'll probably want the layers to be translucent in some way. My cloud images cover the window and I set the position of the balloon manually. Transparent PNGs and the some CSS <code>opacity</code> are your friends here.</p>
-            <p>We'll manipulate the <code>top</code> value to control the vertical position of the layer later. I use <code>z-index</code> to set the order of the layers and to force them to render behind the rest of the page content by using values less than 0.</p>
+            <p>You can style your layers however you like, though you'll probably want the layers to be translucent in some way. The heading and balloon image are set to be parallax layers. My cloud layers are big enough to cover a few screens worth of scrolling. Transparent PNGs and the some CSS <code>opacity</code> are your friends here.</p>
+            <p>We use <code>z-index</code> to set the order of the layers and to force them to render behind the rest of the page content by using values less than 0.</p>
             <pre><code class="language-css">
 #clouds1 {
+    position: fixed;
     background: center center repeat url('images/clouds1.png');
     opacity: 0.6;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    height: 5000px;
     z-index: -3;
 }
 
 #clouds2 {
+    position: fixed;
     background: center center repeat url('images/clouds2.png');
     opacity: 0.3;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    height: 5000px;
     z-index: -1;
 }
 
 #balloon {
-    top: 15em;
-    left: 50%;
-    width: 8em;
-    margin-left: -4em;
     z-index: -2;
+    ...
 }
             </code></pre>
-            <p>We set <code>position:fixed;</code> on all of our layers to set its position to be relative to the browser window. We also tell the browser that we're going to be animating the "top" property to allow it to do rendering optimisations by specifiying <code>transition:top</code>. The transition length is set to <code>2s</code> meaning our animation will continue for two seconds after the user stops scrolling. The <code>cubic-bezier</code> gives our animation a nice steady decelleration. You could of course use <code>ease-out</code> or any other timing function you wish.</p>
+            <p>Note the use of <code>position:fixed;</code> on layers that we want to move relative to the <i>browser window</i> rather than relative to their usual position on the page. We also tell the browser that we're going to be animating the "transform" property to allow it to do rendering optimisations by telling it the <code>transform</code> is going to change. The transition length is set to <code>2s</code> meaning our animation will continue for two seconds after the user stops scrolling. The <code>cubic-bezier</code> gives our animation a nice steady decelleration. You could of course use <code>ease-out</code> or any other timing function you wish.</p>
             <p>(For a more real-time parallax effect set the value to something really short like <code>0.05s</code>.  A value of <code>0s</code> leaves the smoothness of the animation at the mercy of how fast your browser is generating <code>onScroll</code> events.)</p>
             <pre><code class="language-css">
 .parallax-layer {
-    position: fixed;
-    transition: top 2s cubic-bezier(0, 0, 0.3, 1);
+    transition: transform 2s cubic-bezier(0, 0, 0.3, 1);
 }
             </code></pre>
-            <p>Finally, we watch for page scroll events with a little jQuery. Here we're simply setting the CSS <code>top</code> value of each layer by slightly different offset based on how much the user has scrolled.</p>
+            <p>Finally, we watch for page scroll events with a little jQuery. Here we set the CSS <code>transform</code> property of each layer by slightly different offsets based on how much the user has scrolled. Using <code>transform</code> essentially tells your browser to render the content in a different location, usually using the GPU so it's buttery smooth.</p>
+            <p>Notice how we're getting the value of <code>data-parallax-displacement</code> for each layer we defined earlier so we know how much to move it by.</p>
             <pre><code class="language-javascript">
-// the current vertical scroll offset,
-// capped to 0 for browsers that allow over-scrolling
-var layers = $('.parallax-layer').each(function() {
-    $(this).data('layer-offset', parseInt($(this).css('top')));
-});
+// cache the layer elements
+var layers = $('.parallax-layer');
 
 $(document)
     .on('scroll', function() {
-        // the scroll offset, capped to 0 for browsers
-        // that allow over-scrolling
+        // the current vertical scroll offset,
+        // capped to 0 for browsers that allow over-scrolling
         var scroll_offset = Math.max(0, $(document).scrollTop());
 
         // set the 'top' of each layer
         layers.each(function(i) {
-            var y = $(this).data('layer-offset');
-            var dy = Math.round(scroll_offset * (layers.length - i) * -0.5);
-            $(this).css('top', y + dy + 'px');
+            var displacement = $(this).data('parallax-displacement');
+            var dy = Math.round(scroll_offset * -displacement);
+            $(this).css('transform', 'translateY(' + dy + 'px)');
         });
     });
             </code></pre>
@@ -99,46 +106,45 @@ $(document)
         }
 
         .parallax-layer {
-            position: fixed;
-            transition: top 2s cubic-bezier(0, 0, 0.3 ,1);
+            transition: transform 2s cubic-bezier(0, 0, 0.3 ,1);
         }
 
         #clouds1 {
+            position: fixed;
             background: center center repeat url('images/clouds1.png');
             opacity: 0.6;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
+            height: 5000px;
             z-index: -3;
         }
 
         #clouds2 {
+            position: fixed;
             background: center center repeat url('images/clouds2.png');
             opacity: 0.3;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
+            height: 5000px;
             z-index: -1;
         }
 
-        #balloon {
-            top: 15em;
-            left: 50%;
-            width: 8em;
-            margin-left: -4em;
-            z-index: -2;
-        }
-
         h1 {
-            margin-top: 0.5em;
-            margin-bottom: 1.2em;
             font-family: 'Roboto Slab', sans-serif;
             text-align: center;
             font-size: 8em;
             color: rgba(255, 255, 255, 0.7);
             text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        #balloon {
+            display: block;
+            z-index: -2;
+            width: 1.5em;
+            margin: 0 auto -0.2em auto;
         }
 
         #content {
@@ -183,19 +189,11 @@ $(document)
                 text-shadow: none;
                 font-size: 4em;
             }
-            #balloon {
-                width: 4em;
-                margin-left: -2em;
-                top: 8em;
-            }
         }
     </style>
     <script type="text/javascript">
-        // save the intial 'top' px value of each layer
-        // and save the layers for later
-        var layers = $('.parallax-layer').each(function() {
-            $(this).data('layer-offset', parseInt($(this).css('top')));
-        });
+        // cache layer elements
+        var layers = $('.parallax-layer');
 
         $(document)
             .on('scroll', function() {
@@ -205,9 +203,9 @@ $(document)
 
                 // set the 'top' of each layer
                 layers.each(function(i) {
-                    var y = $(this).data('layer-offset');
-                    var dy = Math.round(scroll_offset * (layers.length - i) * -0.5);
-                    $(this).css('top', y + dy + 'px');
+                    var displacement = $(this).data('parallax-displacement');
+                    var dy = Math.round(scroll_offset * -displacement);
+                    $(this).css('transform', 'translateY(' + dy + 'px)');
                 });
             });
     </script>
