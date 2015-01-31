@@ -104,7 +104,8 @@ $(document)
         }
 
         .parallax-layer {
-            transition: transform 2s cubic-bezier(0, 0, 0.3 ,1);
+            transition: transform 2s cubic-bezier(0, 0, 0.3, 1);
+            transition: -webkit-transform 2s cubic-bezier(0, 0, 0.3, 1);
         }
 
         #clouds1 {
@@ -202,7 +203,11 @@ $(document)
                 layers.each(function(i) {
                     var displacement = $(this).data('parallax-displacement');
                     var dy = Math.round(scroll_offset * -displacement);
-                    $(this).css('transform', 'translateY(' + dy + 'px)');
+                    var transform = 'translateY(' + dy + 'px)';
+                    $(this).css({
+                        'transform': transform,
+                        '-webkit-transform': transform
+                    });
                 });
             });
     </script>
