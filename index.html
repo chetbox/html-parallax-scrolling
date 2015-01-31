@@ -200,7 +200,7 @@ $(document)
                 var scroll_offset = Math.max(0, $(document).scrollTop());
 
                 // set the 'top' of each layer
-                layers.each(function(i) {
+                layers.each(function() {
                     var displacement = $(this).data('parallax-displacement');
                     var dy = Math.round(scroll_offset * -displacement);
                     var transform = 'translateY(' + dy + 'px)';
