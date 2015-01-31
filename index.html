@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>HTML Parallax Scrolling</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <link href="http://fonts.googleapis.com/css?family=Roboto%20Slab" rel="stylesheet" type="text/css"/>
         <link href="http://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css"/>
         <link href="http://fonts.googleapis.com/css?family=Oxygen%20Mono" rel="stylesheet" type="text/css"/>
@@ -173,13 +174,20 @@ $(document)
         .token.lf:before {
             content: none;
         }
-    </style>
-    <style type="text/css" media="screen and (max-width:640px)">
-        body {
-            font-size: 12px;
-        }
-        #content {
-            max-width: none;
+
+        @media only screen and (max-width: 640px) {
+            body {
+                font-size: 14px;
+            }
+            h1 {
+                text-shadow: none;
+                font-size: 4em;
+            }
+            #balloon {
+                width: 4em;
+                margin-left: -2em;
+                top: 8em;
+            }
         }
     </style>
     <script type="text/javascript">
