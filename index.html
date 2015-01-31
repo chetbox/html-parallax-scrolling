@@ -29,8 +29,7 @@
 &lt;h1&gt;
     &lt;span class="parallax-layer" data-parallax-displacement="0.1"&gt;Parallax&lt;/span&gt;
     &lt;br /&gt;
-    &lt;img id="balloon" src="images/balloon.png"
-        class="parallax-layer" data-parallax-displacement="0.75"/&gt;
+    &lt;img id="balloon" src="images/balloon.png" class="parallax-layer" data-parallax-displacement="0.75"/&gt;
 &lt;/h1&gt;
             </code></pre>
             <p>You can style your layers however you like, though you'll probably want the layers to be translucent in some way. The heading and balloon image are set to be parallax layers. My cloud layers are big enough to cover a few screens worth of scrolling. Transparent PNGs and the some CSS <code>opacity</code> are your friends here.</p>
@@ -44,7 +43,7 @@
     left: 0;
     right: 0;
     height: 5000px;
-    z-index: -3;
+    z-index: -2;
 }
 
 #clouds2 {
@@ -60,7 +59,6 @@
 }
 
 #balloon {
-    z-index: -2;
     ...
 }
             </code></pre>
@@ -117,7 +115,7 @@ $(document)
             left: 0;
             right: 0;
             height: 5000px;
-            z-index: -3;
+            z-index: -2;
         }
 
         #clouds2 {
@@ -142,7 +140,6 @@ $(document)
 
         #balloon {
             display: block;
-            z-index: -2;
             width: 1.5em;
             margin: 0 auto -0.2em auto;
         }
