@@ -15,26 +15,20 @@
     <body>
         <div id="clouds1" class="parallax-layer" data-parallax-displacement="0.025"></div>
         <div id="clouds2" class="parallax-layer" data-parallax-displacement="0.05"></div>
-        <h1>
-            <span class="parallax-layer" data-parallax-displacement="0.01">Parallax</span>
-            <br />
-            <img id="balloon" src="images/balloon.png"
-                class="parallax-layer" data-parallax-displacement="0.1"/>
-        </h1>
+        <h1>Parallax</h1>
+        <img id="balloon" src="images/balloon.png"
+            class="parallax-layer" data-parallax-displacement="0.1"/>
         <div id="content">
             <p>I was asked recently how to achieve a parallax scrolling effect on web pages. With some simple Javascript and CSS you can achieve an effect like this that looks great. Scroll up and down to see it in action.</p>
             <p>Firstly, create some layers for your parallax effect and give them a <code>parallax-layer</code> class. This example has two different images clouds and a hot air ballon at the top of the page.</p>
-            <p>We set <code>data-parallax-displacement</code> on each parallax layer which specifies how much element moves relative to amount the user scrolls.</p>
+            <p>We set <code>data-parallax-displacement</code> on each parallax layer which specifies how much an element moves relative to amount the user scrolls.</p>
             <pre><code class="language-markup">
 &lt;div id="clouds1" class="parallax-layer" data-parallax-displacement="0.025"&gt;&lt;/div&gt;
 &lt;div id="clouds2" class="parallax-layer" data-parallax-displacement="0.05"&gt;&lt;/div&gt;
-&lt;h1&gt;
-    &lt;span class="parallax-layer" data-parallax-displacement="00.1"&gt;Parallax&lt;/span&gt;
-    &lt;br /&gt;
-    &lt;img id="balloon" src="images/balloon.png" class="parallax-layer" data-parallax-displacement="0.1"/&gt;
-&lt;/h1&gt;
+&lt;h1&gt;Parallax&lt;/h1&gt;
+&lt;img id="balloon" src="images/balloon.png" class="parallax-layer" data-parallax-displacement="0.1"/&gt;
             </code></pre>
-            <p>You can style your layers however you like, though you'll probably want the layers to be translucent in some way. The heading and balloon image are set to be parallax layers. My cloud layers are big enough to cover a few screens worth of scrolling. Transparent PNGs and the some CSS <code>opacity</code> are your friends here.</p>
+            <p>You can style your layers however you like, though you'll probably want the layers to be translucent in some way. Here, the heading and balloon image are set to be parallax layers. My cloud layers are big enough to cover a few screens worth of scrolling. Transparent PNGs and some CSS <code>opacity</code> are your friends here.</p>
             <p>We use <code>z-index</code> to set the order of the layers and to force them to render behind the rest of the page content by using values less than 0.</p>
             <pre><code class="language-css">
 #clouds1 {
@@ -139,12 +133,13 @@ $(document)
             font-size: 8em;
             color: rgba(255, 255, 255, 0.7);
             text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 0.2em;
         }
 
         #balloon {
             display: block;
-            width: 1.5em;
-            margin: 0 auto -0.2em auto;
+            width: 220px;
+            margin: 0 auto;
         }
 
         #content {
