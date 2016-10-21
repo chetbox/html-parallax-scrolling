@@ -9,29 +9,29 @@
         <link href="http://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css"/>
         <link href="http://fonts.googleapis.com/css?family=Oxygen%20Mono" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-        
+
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css"/>
     </head>
     <body>
-        <div id="clouds1" class="parallax-layer" data-parallax-displacement="0.25"></div>
-        <div id="clouds2" class="parallax-layer" data-parallax-displacement="0.5"></div>
+        <div id="clouds1" class="parallax-layer" data-parallax-displacement="0.025"></div>
+        <div id="clouds2" class="parallax-layer" data-parallax-displacement="0.05"></div>
         <h1>
-            <span class="parallax-layer" data-parallax-displacement="0.1">Parallax</span>
+            <span class="parallax-layer" data-parallax-displacement="0.01">Parallax</span>
             <br />
             <img id="balloon" src="images/balloon.png"
-                class="parallax-layer" data-parallax-displacement="0.75"/>
+                class="parallax-layer" data-parallax-displacement="0.1"/>
         </h1>
         <div id="content">
             <p>I was asked recently how to achieve a parallax scrolling effect on web pages. With some simple Javascript and CSS you can achieve an effect like this that looks great. Scroll up and down to see it in action.</p>
             <p>Firstly, create some layers for your parallax effect and give them a <code>parallax-layer</code> class. This example has two different images clouds and a hot air ballon at the top of the page.</p>
             <p>We set <code>data-parallax-displacement</code> on each parallax layer which specifies how much element moves relative to amount the user scrolls.</p>
             <pre><code class="language-markup">
-&lt;div id="clouds1" class="parallax-layer" data-parallax-displacement="0.25"&gt;&lt;/div&gt;
-&lt;div id="clouds2" class="parallax-layer" data-parallax-displacement="0.5"&gt;&lt;/div&gt;
+&lt;div id="clouds1" class="parallax-layer" data-parallax-displacement="0.025"&gt;&lt;/div&gt;
+&lt;div id="clouds2" class="parallax-layer" data-parallax-displacement="0.05"&gt;&lt;/div&gt;
 &lt;h1&gt;
-    &lt;span class="parallax-layer" data-parallax-displacement="0.1"&gt;Parallax&lt;/span&gt;
+    &lt;span class="parallax-layer" data-parallax-displacement="00.1"&gt;Parallax&lt;/span&gt;
     &lt;br /&gt;
-    &lt;img id="balloon" src="images/balloon.png" class="parallax-layer" data-parallax-displacement="0.75"/&gt;
+    &lt;img id="balloon" src="images/balloon.png" class="parallax-layer" data-parallax-displacement="0.1"/&gt;
 &lt;/h1&gt;
             </code></pre>
             <p>You can style your layers however you like, though you'll probably want the layers to be translucent in some way. The heading and balloon image are set to be parallax layers. My cloud layers are big enough to cover a few screens worth of scrolling. Transparent PNGs and the some CSS <code>opacity</code> are your friends here.</p>
@@ -64,11 +64,11 @@
     ...
 }
             </code></pre>
-            <p>Note the use of <code>position:fixed;</code> on layers that we want to move relative to the <i>browser window</i> rather than relative to their usual position on the page. We also tell the browser that we're going to be animating the "transform" property to allow it to do rendering optimisations by telling it the <code>transform</code> is going to change. The transition length is set to <code>2s</code> meaning our animation will continue for two seconds after the user stops scrolling. The <code>cubic-bezier</code> gives our animation a nice steady decelleration. You could of course use <code>ease-out</code> or any other timing function you wish.</p>
+            <p>Note the use of <code>position:fixed;</code> on layers that we want to move relative to the <i>browser window</i> rather than relative to their usual position on the page. We also tell the browser that we're going to be animating the "transform" property to allow it to do rendering optimisations by telling it the <code>transform</code> is going to change. The transition length is set to <code>2s</code> meaning our animation will continue for two seconds after the user stops scrolling. The <code>ease</code> gives our animation a nice steady accelleration and decelleration. You could of course use <code>ease-out</code> or any other timing function you wish.</p>
             <p>(For a more real-time parallax effect set the value to something really short like <code>0.05s</code>.  A value of <code>0s</code> leaves the smoothness of the animation at the mercy of how fast your browser is generating <code>onScroll</code> events.)</p>
             <pre><code class="language-css">
 .parallax-layer {
-    transition: transform 2s cubic-bezier(0, 0, 0.3, 1);
+    transition: transform 2s ease;
 }
             </code></pre>
             <p>Finally, we watch for page scroll events with a little jQuery. Here we set the CSS <code>transform</code> property of each layer by slightly different offsets based on how much the user has scrolled. Using <code>transform</code> essentially tells your browser to render the content in a different location, usually using the GPU so it's buttery smooth.</p>
@@ -106,8 +106,8 @@ $(document)
         }
 
         .parallax-layer {
-            transition: transform 2s cubic-bezier(0, 0, 0.3, 1);
-            transition: -webkit-transform 2s cubic-bezier(0, 0, 0.3, 1);
+            transition: transform 2s ease;
+            transition: -webkit-transform 2s ease;
         }
 
         #clouds1 {
